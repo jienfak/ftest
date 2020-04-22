@@ -1,0 +1,4 @@
+CC = tcc
+LD = $CC
+
+ROOT = /usr/local
