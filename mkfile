@@ -23,5 +23,4 @@ install :V: $TGT
 	cp -f $TGT $ROOT/bin/
 	sed s/VERSION/$VERSION/g <$TGT.1 > $ROOT/share/man/man1/$TGT.1
 	chmod 0755 $ROOT/bin/$TGT
-	chmod u+s $ROOT/bin/$TGT
 	chmod 0644 $ROOT/share/man/man1/$TGT.1
