@@ -25,22 +25,23 @@ test(const char *path, const char *name)
 {
 	struct stat st, ln;
 
-	if ((!stat(path, &st) && (FLAG('a') || name[0] != '.')        /* hidden files      */
-	&& (!FLAG('b') || S_ISBLK(st.st_mode))                        /* block special     */
-	&& (!FLAG('c') || S_ISCHR(st.st_mode))                        /* character special */
-	&& (!FLAG('d') || S_ISDIR(st.st_mode))                        /* directory         */
-	&& (!FLAG('e') || access(path, F_OK) == 0)                    /* exists            */
-	&& (!FLAG('f') || S_ISREG(st.st_mode))                        /* regular file      */
-	&& (!FLAG('g') || st.st_mode & S_ISGID)                       /* set-group-id flag */
-	&& (!FLAG('h') || (!lstat(path, &ln) && S_ISLNK(ln.st_mode))) /* symbolic link     */
-	&& (!FLAG('n') || st.st_mtime > new.st_mtime)                 /* newer than file   */
-	&& (!FLAG('o') || st.st_mtime < old.st_mtime)                 /* older than file   */
-	&& (!FLAG('p') || S_ISFIFO(st.st_mode))                       /* named pipe        */
-	&& (!FLAG('r') || access(path, R_OK) == 0)                    /* readable          */
-	&& (!FLAG('s') || st.st_size > 0)                             /* not empty         */
-	&& (!FLAG('u') || st.st_mode & S_ISUID)                       /* set-user-id flag  */
-	&& (!FLAG('w') || access(path, W_OK) == 0)                    /* writable          */
-	&& (!FLAG('x') || access(path, X_OK) == 0)) != FLAG('v')) {   /* executable        */
+	if( (!stat(path, &st)
+			&& (!FLAG('a') || name[0] != '.') /* Hidden files. */
+			&& (!FLAG('b') || S_ISBLK(st.st_mode)) /* Block special. */
+			&& (!FLAG('c') || S_ISCHR(st.st_mode)) /* character special. */
+			&& (!FLAG('d') || S_ISDIR(st.st_mode)) /* Directory. */
+			&& (!FLAG('e') || access(path, F_OK) == 0) /* Exists. */
+			&& (!FLAG('f') || S_ISREG(st.st_mode)) /* Regular file. */
+			&& (!FLAG('g') || st.st_mode & S_ISGID) /* Set-group-id flag. */
+			&& (!FLAG('h') || (!lstat(path, &ln) && S_ISLNK(ln.st_mode))) /* Symbolic link. */
+			&& (!FLAG('n') || st.st_mtime > new.st_mtime) /* Newer than file. */
+			&& (!FLAG('o') || st.st_mtime < old.st_mtime) /* Older than file.   */
+			&& (!FLAG('p') || S_ISFIFO(st.st_mode)) /* Named pipe. */
+			&& (!FLAG('r') || access(path, R_OK) == 0) /* Readable. */
+			&& (!FLAG('s') || st.st_size > 0) /* Not empty. */
+			&& (!FLAG('u') || st.st_mode & S_ISUID) /* Set-user-id flag. */
+			&& (!FLAG('w') || access(path, W_OK) == 0) /* Writable. */
+			&& (!FLAG('x') || access(path, X_OK) == 0)) != FLAG('v')) { /* Executable. */
 		if (FLAG('q'))
 			exit(0);
 		match = 1;
@@ -51,7 +52,7 @@ test(const char *path, const char *name)
 static void
 usage(void)
 {
-	fprintf(stderr, "usage: %s [-abcdefghlpqrsuvwx] "
+	fprintf(stderr, "Usage: %s [-abcdefghlpqrsuvwx] "
 	        "[-n file] [-o file] [file...]\n", argv0);
 	exit(2); /* like test(1) return > 1 on error */
 }
